@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Escala de EVA</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap');
+    
+    body {
+      font-family: 'Fredoka', sans-serif;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: linear-gradient(270deg, #dcf8ff, #7dd3fc, #dcf8ff);
+      background-size: 600% 600%;
+      animation: WaterFlow 20s ease infinite;
+    }
+
+    @keyframes WaterFlow {
+        0%{background-position:0% 50%}
+        50%{background-position:100% 50%}
+        100%{background-position:0% 50%}
+    }
+
+    .main-card {
+      width: 90%;
+      max-width: 1200px;
+      min-height: 82vh;
+      background-color: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(8px);
+      border-radius: 3rem;
+      padding: 3rem;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      margin-top: 3vh;
+      margin-bottom: 2vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .scale-item {
+      transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .scale-item:hover {
+      transform: scale(1.03);
+    }
+    .scale-selected {
+      transform: scale(1.06) !important;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2) !important;
+      border: 3px solid #0284c7 !important;
+    }
+
+    .face-shadow {
+      filter: drop-shadow(0px 3px 5px rgba(0,0,0,0.15));
+    }
+  </style>
+</head>
+<body class="py-4 px-4 flex flex-col items-center">
+
+  <div class="main-card">
+    
+    <!-- Encabezado -->
+    <div class="text-center mb-6">
+      <h1 class="text-4xl md:text-5xl font-extrabold text-purple-900 tracking-wide uppercase drop-shadow-sm">
+        Escala de EVA
+      </h1>
+      <p class="text-slate-500 mt-2 text-base md:text-lg">
+        Selecciona o haz clic en el nivel de dolor de la escala vertical
+      </p>
+    </div>
+
+    <!-- Contenedor Principal (Escala vertical a la izquierda / Panel a la derecha) -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center flex-grow">
+      
+      <!-- Columna de la Escala Vertical (10 al 1) -->
+      <div class="lg:col-span-5 flex flex-col gap-2 max-h-[550px] overflow-y-auto pr-2">
+        
+        <!-- Nivel 10 (Vino / Severo) -->
+        <div onclick="selectEva(10)" id="eva-10" class="scale-item cursor-pointer flex items-center justify-between bg-rose-950 text-white rounded-2xl p-3 shadow-md border-2 border-rose-800">
+          <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center font-bold text-xl">10</div>
+          <div class="w-12 h-12 face-shadow">
+            <svg viewBox="0 0 100 100" class="w-full h-full">
+              <circle cx="50" cy="50" r="45" fill="#fecdd3"/>
+              <circle cx="36" cy="42" r="6" fill="#881337"/>
+              <circle cx="64" cy="42" r="6" fill="#881337"/>
+              <line x1="24" y1="28" x2="44" y2="38" stroke="#881337" stroke-width="5" stroke-linecap="round"/>
+              <line x1="76" y1="28" x2="56" y2="38" stroke="#881337" stroke-width="5" stroke-linecap="round"/>
+              <ellipse cx="50" cy="68" rx="14" ry="10" fill="#881337"/>
+              <path d="M 26 48 Q 22 58 26 62 Q 30 58 26 48" fill="#38bdf8"/>
+            </svg>
+          </div>
+          <span class="font-bold text-sm tracking-wide uppercase pr-2 text-rose-200">Insoportable</span>
+        </div>
+
+        <!-- Nivel 9 (Rojo) -->
+        <div onclick="selectEva(9)" id="eva-9" class="scale-item cursor-pointer flex items-center justify-between bg-red-600 text-white rounded-2xl p-3 shadow-md border-2 border-red-500">
+          <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center font-bold text-xl">9</div>
+          <div class="w-12 h-12 face-shadow">
+            <svg viewBox="0 0 100 100" class="w-full h-full">
+              <circle cx="50" cy="50" r="45" fill="#f87171"/>
+              <circle cx="36" cy="42" r="5" fill="#991b1b"/>
+              <circle cx="64" cy="42" r="5" fill="#991b1b"/>
+              <line x1="26" y1="30" x2="44" y2="38" stroke="#991b1b" stroke-width="4" stroke-linecap="round"/>
+              <line x1="74" y1="30" x2="56" y2="38" stroke="#991b1b" stroke-width="4" stroke-linecap="round"/>
+              <path d="M 32 68 Q 50 54 68 68" stroke="#991b1b" stroke-width="5" stroke-linecap="round" fill="none"/>
+              <path d="M 28 50 Q 25 58 28 62 Q 31 58 28 50" fill="#38bdf8"/>
+            </svg>
+          </div>
+          <span class="font-bold text-sm tracking-wide uppercase pr-2 text-red-100">Severo</span>
+        </div>
+
+        <!-- Nivel 8 -->
+        <div onclick="selectEva(8)" id="eva-8" class="scale-item cursor-pointer flex items-center justify-between bg-orange-600 text-white rounded-2xl p-3 shadow-md border-2 border-orange-500">
+          <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center font-bold text-xl">8</div>
+          <div class="w-12 h-12 face-shadow">
+            <svg viewBox="0 0 100 100" class="w-full h-full">
+              <circle cx="50" cy="50" r="45" fill="#fb923c"/>
+              <circle cx="36" cy="42" r="5" fill="#9a3412"/>
+              <circle cx="64" cy="42" r="5" fill="#9a3412"/>
+              <line x1="28" y1="32" x2="44" y2="37" stroke="#9a3412" stroke-width="4" stroke-linecap="round"/>
+              <line x1="72" y1="32" x2="56" y2="37" stroke="#9a3412" stroke-width="4" stroke-linecap="round"/>
+              <path d="M 32 68 Q 50 54 68 68" stroke="#9a3412" stroke-width="5" stroke-linecap="round" fill="none"/>
+            </svg>
+          </div>
+          <span class="font-bold text-sm tracking-wide uppercase pr-2 text-orange-100">Severo</span>
+        </div>
+
+        <!-- Nivel 7 -->
+        <div onclick="selectEva(7)" id="eva-7" class="scale-item cursor-pointer flex items-center justify-between bg-amber-500 text-white rounded-2xl p-3 shadow-md border-2 border-amber-400">
+          <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center font-bold text-xl">7</div>
+          <div class="w-12 h-12 face-shadow">
+            <svg viewBox="0 0 100 100" class="w-full h-full">
+              <circle cx="50" cy="50" r="45" fill="#fcd34d"/>
+              <circle cx="36" cy="40" r="5" fill="#78350f"/>
+              <circle cx="64" cy="40" r="5" fill="#78350f"/>
+              <line x1="28" y1="32" x2="44" y2="32" stroke="#78350f" stroke-width="4" stroke-linecap="round"/>
+              <line x1="56" y1="32" x2="72" y2="32" stroke="#78350f" stroke-width="4" stroke-linecap="round"/>
+              <line x1="32" y1="65" x2="68" y2="65" stroke="#78350f" stroke-width="5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <span class="font-bold text-sm tracking-wide uppercase pr-2 text-amber-100">Severo</span>
+        </div>
+
+        <!-- Nivel 6 (Moderado) -->
+        <div onclick="selectEva(6)" id="eva-6" class="scale-item cursor-pointer flex items-center justify-between bg-yellow-400 text-slate-900 rounded-2xl p-3 shadow-md border-2 border-yellow-300">
+          <div class="w-12 h-12 bg-black/10 rounded-full flex items-center justify-center font-bold text-xl">6</div>
+          <div class="w-12 h-12 face-shadow">
+            <svg viewBox="0 0 100 100" class="w-full h-full">
+              <circle cx="50" cy="50" r="45" fill="#fef08a"/>
+              <circle cx="36" cy="40" r="5" fill="#713f12"/>
+              <circle cx="64" cy="40" r="5" fill="#713f12"/>
+              <line x1="32" y1="65" x2="68" y2="65" stroke="#713f12" stroke-width="5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <span class="font-bold text-sm tracking-wide uppercase pr-2 text-yellow-900">Moderado</span>
+        </div>
+
+        <!-- Nivel 5 -->
+        <div onclick="selectEva(5)" id="eva-5" class="scale-item cursor-pointer flex items-center justify-between bg-yellow-300 text-slate-900 rounded-2xl p-3 shadow-md border-2 border-yellow-200">
+          <div class="w-12 h-12 bg-black/10 rounded-full flex items-center justify-center font-bold text-xl">5</div>
+          <div class="w-12 h-12 face-shadow">
+            <svg viewBox="0 0 100 100" class="w-full h-full">
+              <circle cx="50" cy="50" r="45" fill="#fef08a"/>
+              <path d="M 30 42 Q 38 34 46 42" stroke="#713f12" stroke-width="5" stroke-linecap="round" fill="none"/>
+              <path d="M 54 42 Q 62 34 70 42" stroke="#713f12" stroke-width="5" stroke-linecap="round" fill="none"/>
+              <path d="M 35 65 Q 50 65 65 65" stroke="#713f12" stroke-width="5" stroke-linecap="round" fill="none"/>
+            </svg>
+          </div>
+          <span class="font-bold text-sm tracking-wide uppercase pr-2 text-yellow-900">Moderado</span>
+        </div>
+
+        <!-- Nivel 4 -->
+        <div onclick="selectEva(4)" id="eva-4" class="scale-item cursor-pointer flex items-center justify-between bg-lime-400 text-slate-900 rounded-2xl p-3 shadow-md border-2 border-lime-300">
+          <div class="w-12 h-12 bg-black/10 rounded-full flex items-center justify-center font-bold text-xl">4</div>
+          <div class="w-12 h-12 face-shadow">
+            <svg viewBox="0 0 100 100" class="w-full h-full">
+              <circle cx="50" cy="50" r="45" fill="#bef264"/>
+              <path d="M 30 42 Q 38 34 46 42" stroke="#3f6212" stroke-width="5" stroke-linecap="round" fill="none"/>
+              <path d="M 54 42 Q 62 34 70 42" stroke="#3f6212" stroke-width="5" stroke-linecap="round" fill="none"/>
+              <path d="M 32 60 Q 50 78 68 60" stroke="#3f6212" stroke-width="5" stroke-linecap="round" fill="none"/>
+            </svg>
+          </div>
+          <span class="font-bold text-sm tracking-wide uppercase pr-2 text-lime-950">Moderado</span>
+        </div>
+
+        <!-- Nivel 3 (Leve) -->
+        <div onclick="selectEva(3)" id="eva-3" class="scale-item cursor-pointer flex items-center justify-between bg-emerald-500 text-white rounded-2xl p-3 shadow-md border-2 border-emerald-400">
+          <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center font-bold text-xl">3</div>
+          <div class="w-12 h-12 face-shadow">
+            <svg viewBox="0 0 100 100" class="w-full h-full">
+              <circle cx="50" cy="50" r="45" fill="#34d399"/>
+              <path d="M 30 42 Q 38 32 46 42" stroke="#065f46" stroke-width="5" stroke-linecap="round" fill="none"/>
+              <path d="M 54 42 Q 62 32 70 42" stroke="#065f46" stroke-width="5" stroke-linecap="round" fill="none"/>
+              <path d="M 28 58 Q 50 82 72 58" stroke="#065f46" stroke-width="5" stroke-linecap="round" fill="none"/>
+            </svg>
+          </div>
+          <span class="font-bold text-sm tracking-wide uppercase pr-2 text-emerald-100">Leve</span>
+        </div>
+
+        <!-- Nivel 2 -->
+        <div onclick="selectEva(2)" id="eva-2" class="scale-item cursor-pointer flex items-center justify-between bg-emerald-600 text-white rounded-2xl p-3 shadow-md border-2 border-emerald-500">
+          <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center font-bold text-xl">2</div>
+          <div class="w-12 h-12 face-shadow">
+            <svg viewBox="0 0 100 100" class="w-full h-full">
+              <circle cx="50" cy="50" r="45" fill="#10b981"/>
+              <circle cx="36" cy="40" r="5" fill="#022c22"/>
+              <circle cx="64" cy="40" r="5" fill="#022c22"/>
+              <path d="M 32 58 Q 50 78 68 58" stroke="#022c22" stroke-width="5" stroke-linecap="round" fill="none"/>
+            </svg>
+          </div>
+          <span class="font-bold text-sm tracking-wide uppercase pr-2 text-emerald-100">Leve</span>
+        </div>
+
+        <!-- Nivel 1 -->
+        <div onclick="selectEva(1)" id="eva-1" class="scale-item cursor-pointer flex items-center justify-between bg-teal-600 text-white rounded-2xl p-3 shadow-md border-2 border-teal-500">
+          <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center font-bold text-xl">1</div>
+          <div class="w-12 h-12 face-shadow">
+            <svg viewBox="0 0 100 100" class="w-full h-full">
+              <circle cx="50" cy="50" r="45" fill="#0d9488"/>
+              <circle cx="36" cy="40" r="5" fill="#042f2e"/>
+              <circle cx="64" cy="40" r="5" fill="#042f2e"/>
+              <path d="M 30 55 Q 50 80 70 55" stroke="#042f2e" stroke-width="5" stroke-linecap="round" fill="none"/>
+            </svg>
+          </div>
+          <span class="font-bold text-sm tracking-wide uppercase pr-2 text-teal-100">Leve pero soportable</span>
+        </div>
+
+      </div>
+
+      <!-- Columna de Panel de Detalles (A la derecha) -->
+      <div class="lg:col-span-7 flex flex-col justify-center">
+        <div id="eva-panel" class="bg-slate-50 border-2 border-slate-200 rounded-3xl p-8 transition-all duration-300 shadow-inner flex flex-col justify-center min-height-[280px]">
+          <div class="flex items-center gap-4 mb-4">
+            <span class="inline-block w-6 h-6 rounded-full bg-slate-400" id="eva-dot"></span>
+            <div>
+              <span class="text-xs uppercase font-bold tracking-wider text-slate-400" id="eva-category">Categoría</span>
+              <h2 class="text-2xl md:text-3xl font-extrabold text-slate-800" id="eva-title">Selecciona un nivel de EVA</h2>
+            </div>
+          </div>
+          <p class="text-slate-600 text-lg md:text-xl leading-relaxed mb-4" id="eva-desc">
+            Haz clic en cualquier número o carita de la escala vertical izquierda para ver la descripción clínica y las actividades que limita.
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Pie de página con tus créditos -->
+  <footer class="text-center text-slate-600 font-medium py-3 px-8 rounded-full bg-white/70 backdrop-blur-sm shadow-inner mb-4">
+    Desarrollado por <span class="font-bold text-sky-600">Viviana Teresa Jiménez Recoba</span>
+  </footer>
+
+  <script>
+    const evaData = {
+      1: {
+        title: "Nivel 1: Leve pero soportable",
+        category: "LEVE (1-3)",
+        description: "Dolor presente pero completamente soportable. No impide realizar actividades diarias ni interfiere con el descanso.",
+        color: "bg-teal-600",
+        panelStyle: "bg-teal-50 border-teal-300"
+      },
+      2: {
+        title: "Nivel 2: Dolor Leve",
+        category: "LEVE (1-3)",
+        description: "Molestia ligera y ocasional. Permite desempeñar la rutina diaria con total normalidad sin requerir analgésicos fuertes.",
+        color: "bg-emerald-600",
+        panelStyle: "bg-emerald-50 border-emerald-300"
+      },
+      3: {
+        title: "Nivel 3: Dolor Leve perceptible",
+        category: "LEVE (1-3)",
+        description: "Dolor leve pero notable en ciertos movimientos. No impide realizar actividades cotidianas.",
+        color: "bg-emerald-500",
+        panelStyle: "bg-emerald-50 border-emerald-300"
+      },
+      4: {
+        title: "Nivel 4: Dolor Moderado",
+        category: "MODERADO (4-6)",
+        description: "Dolor molesto. Dificulta algunas actividades como caminar, cocinar o concentrarse.",
+        color: "bg-lime-400",
+        panelStyle: "bg-lime-50 border-lime-300"
+      },
+      5: {
+        title: "Nivel 5: Dolor Moderado constante",
+        category: "MODERADO (4-6)",
+        description: "Molestia moderada que interrumpe la atención y requiere pausas frecuentes en las tareas diarias.",
+        color: "bg-yellow-300",
+        panelStyle: "bg-yellow-50 border-yellow-300"
+      },
+      6: {
+        title: "Nivel 6: Dolor Moderado alto",
+        category: "MODERADO (4-6)",
+        description: "Dolor marcado que dificulta significativamente la concentración y limita la movilidad o tareas domésticas.",
+        color: "bg-yellow-400",
+        panelStyle: "bg-yellow-50 border-yellow-300"
+      },
+      7: {
+        title: "Nivel 7: Dolor Severo",
+        category: "SEVERO (7-10)",
+        description: "Dolor muy fuerte. Limita casi todas las actividades (dormir, hablar, moverse).",
+        color: "bg-amber-500",
+        panelStyle: "bg-amber-50 border-amber-300"
+      },
+      8: {
+        title: "Nivel 8: Dolor Severo intenso",
+        category: "SEVERO (7-10)",
+        description: "Dolor intenso que domina los pensamientos del paciente, haciendo casi imposible cualquier actividad independiente.",
+        color: "bg-orange-600",
+        panelStyle: "bg-orange-50 border-orange-300"
+      },
+      9: {
+        title: "Nivel 9: Dolor Severo extremo",
+        category: "SEVERO (7-10)",
+        description: "Dolor agobiante e incapacitante que requiere intervención médica urgente para su alivio.",
+        color: "bg-red-600",
+        panelStyle: "bg-red-50 border-red-300"
+      },
+      10: {
+        title: "Nivel 10: Dolor Insoportable",
+        category: "SEVERO (7-10)",
+        description: "El peor dolor imaginable. El paciente se encuentra completamente incapacitado y con profunda angustia.",
+        color: "bg-rose-950",
+        panelStyle: "bg-rose-50 border-rose-300"
+      }
+    };
+
+    function selectEva(level) {
+      for (let i = 1; i <= 10; i++) {
+        const item = document.getElementById(`eva-${i}`);
+        item.classList.remove('scale-selected', 'ring-4', 'ring-sky-400');
+      }
+
+      const selectedItem = document.getElementById(`eva-${level}`);
+      selectedItem.classList.add('scale-selected');
+
+      const info = evaData[level];
+      const panel = document.getElementById('eva-panel');
+      const dot = document.getElementById('eva-dot');
+      const category = document.getElementById('eva-category');
+      const title = document.getElementById('eva-title');
+      const desc = document.getElementById('eva-desc');
+
+      panel.className = `border-2 rounded-3xl p-8 transition-all duration-300 shadow-inner flex flex-col justify-center ${info.panelStyle}`;
+      dot.className = `inline-block w-6 h-6 rounded-full ${info.color}`;
+      category.textContent = info.category;
+      title.textContent = info.title;
+      desc.textContent = info.description;
+    }
+  </script>
+</body>
+</html>
